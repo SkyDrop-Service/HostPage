@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Started - SkyDrop</title>
+    <style>
+        .step-details {
+            padding: 10px;
+            margin-top: 10px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .step-details.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .step-details.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <img src="../src/skydropicon.png" alt="SkyDrop Icon" class="logo-icon">
+                <a href="/" style="text-decoration: none; color: inherit;">SkyDrop</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/pages/what-is-this.html" class="active">What is this?</a></li>
+                <li><a href="/pages/development.html">Development</a></li>
+                <li><a href="/pages/compatibility.html">Compatibility</a></li>
+                <li><a href="/pages/get-started.html" class="cta-button">Get Set Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="content-section">
+            <h1>Get Started with SkyDrop</h1>
+            <div class="setup-steps">
+                <div class="step" data-step="1">
+                    <h3>Choose Platform</h3>
+                    <p>Get SkyDrop</p>
+                </div>
+                <div class="step" data-step="2">
+                    <h3>Install</h3>
+                    <p>Follow the installation guide</p>
+                </div>
+                <div class="step" data-step="3">
+                    <h3>Host</h3>
+                    <p>Set up web hosting</p>
+                </div>
+                <div class="step" data-step="4">
+                    <h3>Share</h3>
+                    <p>Start sharing files!</p>
+                </div>
+            </div>
+            <div id="step-details" class="step-details"></div>
+        </section>
+    </main>
+
+    <script type="module" src="/scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const steps = document.querySelectorAll('.step');
+            const stepDetails = document.getElementById('step-details');
+
+            steps.forEach(step => {
+                step.addEventListener('click', () => {
+                    const stepNumber = step.getAttribute('data-step');
+                    let details = '';
+
+                    switch (stepNumber) {
+                        case '1':
+                            details = '<h3>Choose Platform</h3><p>Choose which platform to host your SkyDrop server. We recommend using AWS, a Raspberry Pi, or something similar.</p>';
+                            break;
+                        case '2':
+                            details = "<h3>Install</h3><p>Use <b>Git</b> to clone the SkyDrop Repository to your file system. Choose a secure folder that won't change or get deleted.</p><br><br><br><div style='text-align: center;'><a href='https://github.com/gnhen/SkyDrop' target='_blank'><img src='../src/viewongithub.png' height='100'></a></div>";
+                            break;
+                        case '3':
+                            details = "<h3>Host</h3><p>You'll need to host a public interface on the internet, either an IP address or a URL.<br>The best option is a <b>Cloudflare Tunnel</b>, which allows you to port your SkyDrop instance to a purchased URL.</p><br><br><div style='text-align: center;'><a href='https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/' target='_blank'><img src='../src/cloudflare.png' height='150'></a></div>";
+                            break;
+                        case '4':
+                            details = "<h3>Share</h3><p>SkyDrop is easily configurable, allowing for easy sharing from absolutely anywhere with an internet connection. Our team's recommended option is our <b>iOS Shortcut</b>, which has been prebuilt to support SkyDrop directly.</p><br><br><div style='text-align: center;'><a href='https://www.icloud.com/shortcuts/7adb6704dd974610b1981e589d269bb9' target='_blank'><img src='../src/viewoniphone.png' height='150'></a></div>";
+                            break;
+                    }
+
+                    // Fade out the current content
+                    stepDetails.classList.add('fade-out');
+                    stepDetails.classList.remove('active');
+
+                    // Wait for the fade-out transition to complete
+                    setTimeout(() => {
+                        // Update the content and fade in
+                        stepDetails.innerHTML = details;
+                        stepDetails.classList.remove('fade-out');
+                        stepDetails.classList.add('active');
+                    }, 300); // Match the duration of the CSS transition
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
