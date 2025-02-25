@@ -1,4 +1,3 @@
-
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -20,4 +19,11 @@ window.addEventListener('scroll', () => {
     } else {
         navbar.style.backgroundColor = 'rgba(255, 255, 255, 1)';
     }
+});
+
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
 });
